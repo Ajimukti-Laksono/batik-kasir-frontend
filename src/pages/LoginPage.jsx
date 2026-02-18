@@ -19,7 +19,7 @@ const LoginPage = () => {
       const user = await login(form.email, form.password);
       navigate(user.role === 'kasir' ? '/pos' : '/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login gagal. Periksa email dan password.');
+      setError(err.response?.data?.message || err.message || 'Login gagal. Periksa email dan password.');
     } finally {
       setLoading(false);
     }
@@ -133,8 +133,12 @@ const LoginPage = () => {
             </button>
           </form>
 
+
           <div className="mt-8 text-center relative z-10">
              <p className="text-xs text-gray-400">© 2024 Batik Nusantara. All rights reserved.</p>
+             <p className="text-[10px] text-gray-300 mt-2 font-mono break-all opacity-50">
+               API: {import.meta.env.VITE_API_URL || 'Not Set'}
+             </p>
           </div>
         </div>
       </div>
