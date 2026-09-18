@@ -78,11 +78,11 @@ const CategoriesPage = () => {
       {/* ... Header ... */}
       <div className="flex items-center justify-between">
         <div>
-           <h1 className="text-2xl font-bold text-[#423526]">Manajemen Kategori</h1>
+           <h1 className="text-2xl font-bold text-batik-dark">Manajemen Kategori</h1>
            <p className="text-gray-500 text-sm">Kelola kategori produk batik Anda</p>
         </div>
         <button onClick={() => { setForm({ name: '', description: '', is_active: true, image: null, preview: null }); setEditing(null); setModal(true); }}
-          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white rounded-xl font-semibold hover:from-[#423526] hover:to-[#684F33] transition-all shadow-lg">
+          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-batik-gold to-batik-warm text-white rounded-xl font-semibold hover:from-batik-warm hover:to-batik-gold transition-all shadow-lg">
           <Plus size={18} /> Tambah Kategori
         </button>
       </div>
@@ -90,7 +90,7 @@ const CategoriesPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {loading ? (
           <div className="col-span-3 flex justify-center py-12">
-            <div className="w-8 h-8 border-4 border-[#684F33] border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-8 h-8 border-4 border-batik-green border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : categories.map(cat => (
           <div key={cat.id} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative overflow-hidden group">
@@ -113,7 +113,7 @@ const CategoriesPage = () => {
               </div>
               <div>
                 <h3 className="font-bold text-lg text-gray-800">{cat.name}</h3>
-                <p className="text-xs text-[#b27632] font-medium bg-[#b27632]/10 px-2 py-0.5 rounded-full inline-block mt-1">
+                <p className="text-xs text-batik-gold font-medium bg-batik-gold/10 px-2 py-0.5 rounded-full inline-block mt-1">
                   {cat.products_count || 0} Produk
                 </p>
               </div>
@@ -135,12 +135,12 @@ const CategoriesPage = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b flex items-center justify-between sticky top-0 bg-white z-10">
-              <h3 className="text-xl font-bold text-[#423526]">{editing ? 'Edit Kategori' : 'Tambah Kategori'}</h3>
+              <h3 className="text-xl font-bold text-batik-dark">{editing ? 'Edit Kategori' : 'Tambah Kategori'}</h3>
               <button onClick={() => setModal(false)} className="p-2 hover:bg-gray-100 rounded-full"><X size={20} /></button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div className="flex justify-center">
-                 <div className="relative w-32 h-32 bg-gray-100 rounded-2xl overflow-hidden border-2 border-dashed border-gray-300 hover:border-[#684F33] transition-colors group cursor-pointer">
+                 <div className="relative w-32 h-32 bg-gray-100 rounded-2xl overflow-hidden border-2 border-dashed border-gray-300 hover:border-batik-green transition-colors group cursor-pointer">
                     <input type="file" accept="image/*" onChange={handleImageChange} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
                     {form.preview ? (
                       <img src={form.preview} alt="Preview" className="w-full h-full object-cover" />
@@ -156,18 +156,18 @@ const CategoriesPage = () => {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Nama Kategori *</label>
                 <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none" />
+                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none" />
               </div>
               
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Deskripsi</label>
                 <textarea rows={3} value={form.description} onChange={e => setForm({...form, description: e.target.value})}
-                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none resize-none" />
+                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none resize-none" />
               </div>
               
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="is_active_cat" checked={form.is_active} onChange={e => setForm({...form, is_active: e.target.checked})}
-                  className="w-4 h-4 accent-[#684F33]" />
+                  className="w-4 h-4 accent-batik-green" />
                 <label htmlFor="is_active_cat" className="text-sm font-medium text-gray-700">Kategori Aktif</label>
               </div>
               
@@ -176,7 +176,7 @@ const CategoriesPage = () => {
                 <button type="button" onClick={() => setModal(false)}
                   className="flex-1 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50">Batal</button>
                 <button type="submit" disabled={saving}
-                  className="flex-1 py-3 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white rounded-xl font-semibold disabled:opacity-70 flex items-center justify-center gap-2">
+                  className="flex-1 py-3 bg-gradient-to-r from-batik-gold to-batik-warm text-white rounded-xl font-semibold disabled:opacity-70 flex items-center justify-center gap-2">
                   {saving ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> : 'Simpan'}
                 </button>
               </div>

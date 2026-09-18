@@ -211,7 +211,7 @@ const POSPage = () => {
     <div className="flex flex-col lg:flex-row h-full gap-4 -m-6 p-4 bg-gray-100 relative">
       {/* Mobile Cart Toggle */}
       <button 
-        className="lg:hidden fixed bottom-6 right-6 z-50 bg-[#684F33] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:bg-[#5a432b] transition-colors"
+        className="lg:hidden fixed bottom-6 right-6 z-50 bg-batik-green text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:bg-[#5a432b] transition-colors"
         onClick={() => {
           document.getElementById('mobile-cart').classList.remove('translate-y-full');
           document.getElementById('cart-overlay').classList.remove('hidden');
@@ -219,7 +219,7 @@ const POSPage = () => {
       >
         <div className="relative">
           <ShoppingCart size={24} />
-          {cart.length > 0 && <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full absolute -top-2 -right-2 border border-[#684F33]">{cart.length}</span>}
+          {cart.length > 0 && <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full absolute -top-2 -right-2 border border-batik-green">{cart.length}</span>}
         </div>
       </button>
 
@@ -237,22 +237,40 @@ const POSPage = () => {
                 onChange={e => setSearch(e.target.value)}
                 onKeyPress={handleSearchKeyPress}
                 placeholder="Cari produk atau scan barcode..."
-                className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none text-sm"
+                className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none text-sm"
               />
             </div>
           </div>
 
           {/* Category Filter */}
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <div 
+            className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing"
+            onMouseDown={(e) => {
+              const ele = e.currentTarget;
+              ele.dataset.isDown = 'true';
+              ele.dataset.startX = e.pageX - ele.offsetLeft;
+              ele.dataset.scrollLeft = ele.scrollLeft;
+            }}
+            onMouseLeave={(e) => e.currentTarget.dataset.isDown = 'false'}
+            onMouseUp={(e) => e.currentTarget.dataset.isDown = 'false'}
+            onMouseMove={(e) => {
+              const ele = e.currentTarget;
+              if (ele.dataset.isDown !== 'true') return;
+              e.preventDefault();
+              const x = e.pageX - ele.offsetLeft;
+              const walk = (x - parseFloat(ele.dataset.startX)) * 2;
+              ele.scrollLeft = parseFloat(ele.dataset.scrollLeft) - walk;
+            }}
+          >
             <button
               onClick={() => setActiveCategory('all')}
               className={`pl-1 pr-4 py-1 rounded-full text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 border-2 ${
                 activeCategory === 'all'
-                  ? 'bg-white border-[#684F33] text-[#684F33] shadow-md'
+                  ? 'bg-white border-batik-green text-batik-green shadow-md'
                   : 'bg-white border-transparent text-gray-600 hover:bg-gray-50'
               }`}
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeCategory === 'all' ? 'bg-[#684F33] text-white' : 'bg-gray-200 text-gray-400'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeCategory === 'all' ? 'bg-batik-green text-white' : 'bg-gray-200 text-gray-400'}`}>
                 <Package size={16} />
               </div>
               Semua Produk
@@ -263,14 +281,14 @@ const POSPage = () => {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`pl-1 pr-4 py-1 rounded-full text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 border-2 ${
                   activeCategory === cat.id
-                    ? 'bg-white border-[#684F33] text-[#684F33] shadow-md'
+                    ? 'bg-white border-batik-green text-batik-green shadow-md'
                     : 'bg-white border-transparent text-gray-600 hover:bg-gray-50'
                 }`}
               >
                 <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                   {cat.image ? (
                     <img 
-                      src={`${import.meta.env.VITE_API_URL?.replace('/api', '')}/storage/${cat.image}`} 
+                      src={cat.image.startsWith('http') ? cat.image : `${import.meta.env.VITE_API_URL?.replace('/api', '')}/storage/${cat.image}`} 
                       alt={cat.name}
                       className="w-full h-full object-cover"
                       onError={(e) => {
@@ -299,22 +317,21 @@ const POSPage = () => {
               <button
                 key={product.id}
                 onClick={() => addToCart(product)}
-                className="bg-white rounded-2xl p-3 text-left hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 border-2 border-transparent hover:border-[#684F33]/20 group"
+                className="bg-white rounded-2xl p-3 text-left hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 border-2 border-transparent hover:border-batik-gold/30 group"
               >
-                <div className="aspect-square bg-gradient-to-br from-[#FAF8F6] to-[#E5DDD5] rounded-xl mb-3 overflow-hidden">
+                <div className="aspect-square bg-gradient-to-br from-[#FAF8F6] to-[#E5DDD5] rounded-xl mb-3 overflow-hidden shadow-sm">
                   {product.image ? (
-                    <img src={`${import.meta.env.VITE_API_URL?.replace('/api', '')}/storage/${product.image}`}
-                      alt={product.name} className="w-full h-full object-cover" />
+                    <img src={product.image.startsWith('http') ? product.image : `${import.meta.env.VITE_API_URL?.replace('/api', '')}/storage/${product.image}`}
+                      alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <Package size={32} className="text-[#684F33]/30" />
-                    </div>
+                    <img src={`https://loremflickr.com/400/400/batik,clothes?lock=${product.id}`}
+                      alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   )}
                 </div>
-                <p className="text-xs text-gray-500 mb-0.5">{product.sku}</p>
-                <p className="font-semibold text-sm text-gray-800 line-clamp-2 group-hover:text-[#684F33]">{product.name}</p>
-                <p className="font-bold text-[#b27632] mt-1">{formatRupiah(product.price)}</p>
-                <div className={`mt-1 text-xs ${product.stock <= product.min_stock ? 'text-red-500' : 'text-gray-400'}`}>
+                <p className="text-[10px] uppercase tracking-wider font-bold text-gray-400 mb-0.5">{product.sku}</p>
+                <p className="font-bold text-sm text-gray-800 line-clamp-2 group-hover:text-batik-green transition-colors leading-tight">{product.name}</p>
+                <p className="font-bold text-batik-gold mt-1.5">{formatRupiah(product.price)}</p>
+                <div className={`mt-1.5 text-xs font-semibold ${product.stock <= product.min_stock ? 'text-red-500 bg-red-50 px-2 py-0.5 rounded-full inline-block' : 'text-batik-green bg-batik-green/10 px-2 py-0.5 rounded-full inline-block'}`}>
                   Stok: {product.stock}
                 </div>
               </button>
@@ -355,7 +372,7 @@ const POSPage = () => {
         </div>
 
         {/* Cart Header */}
-        <div className="p-4 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white lg:rounded-t-2xl">
+        <div className="p-4 bg-gradient-to-r from-batik-gold to-batik-warm text-white lg:rounded-t-2xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ShoppingCart size={20} />
@@ -378,11 +395,11 @@ const POSPage = () => {
           </div>
           <input type="text" placeholder="Nama pelanggan"
             value={customerInfo.name} onChange={e => setCustomerInfo({...customerInfo, name: e.target.value})}
-            className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm mb-2 focus:outline-none focus:border-[#684F33]"
+            className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm mb-2 focus:outline-none focus:border-batik-green"
           />
           <input type="tel" placeholder="No. telepon"
             value={customerInfo.phone} onChange={e => setCustomerInfo({...customerInfo, phone: e.target.value})}
-            className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#684F33]"
+            className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-batik-green"
           />
         </div>
 
@@ -398,16 +415,16 @@ const POSPage = () => {
               <div key={item.id} className="flex items-center gap-2 p-2 rounded-xl hover:bg-gray-50 group">
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-800 truncate">{item.name}</p>
-                  <p className="text-xs text-[#b27632] font-semibold">{formatRupiah(item.price)}</p>
+                  <p className="text-xs text-batik-gold font-semibold">{formatRupiah(item.price)}</p>
                 </div>
                 <div className="flex items-center gap-1">
                   <button onClick={() => updateQty(item.id, -1)}
-                    className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#684F33] hover:text-white flex items-center justify-center transition-colors">
+                    className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-batik-green hover:text-white flex items-center justify-center transition-colors">
                     <Minus size={14} />
                   </button>
                   <span className="w-7 text-center text-sm font-bold">{item.qty}</span>
                   <button onClick={() => updateQty(item.id, 1)}
-                    className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-[#684F33] hover:text-white flex items-center justify-center transition-colors">
+                    className="w-7 h-7 rounded-lg bg-gray-100 hover:bg-batik-green hover:text-white flex items-center justify-center transition-colors">
                     <Plus size={14} />
                   </button>
                 </div>
@@ -431,7 +448,7 @@ const POSPage = () => {
               <label className="text-xs text-gray-500 whitespace-nowrap">Diskon (%)</label>
               <input type="number" min="0" max="100" value={discount}
                 onChange={e => setDiscount(Number(e.target.value))}
-                className="flex-1 px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#684F33]"
+                className="flex-1 px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-batik-green"
               />
             </div>
 
@@ -447,14 +464,14 @@ const POSPage = () => {
               <div className="flex justify-between text-gray-600">
                 <span>Pajak (11%)</span><span>{formatRupiah(tax)}</span>
               </div>
-              <div className="flex justify-between font-bold text-lg text-[#423526] border-t pt-2 mt-2">
+              <div className="flex justify-between font-bold text-lg text-batik-dark border-t pt-2 mt-2">
                 <span>TOTAL</span><span>{formatRupiah(total)}</span>
               </div>
             </div>
 
             <button
               onClick={() => setPaymentModal(true)}
-              className="w-full py-3 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:from-[#423526] hover:to-[#684F33] transition-all shadow-lg"
+              className="w-full py-3 bg-gradient-to-r from-batik-gold to-batik-warm text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:from-batik-warm hover:to-batik-gold transition-all shadow-lg"
             >
               <CreditCard size={18} /> Bayar {formatRupiah(total)}
             </button>
@@ -468,12 +485,12 @@ const POSPage = () => {
           <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl">
             <div className="p-6 border-b">
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold text-[#423526]">Pilih Pembayaran</h3>
+                <h3 className="text-xl font-bold text-batik-dark">Pilih Pembayaran</h3>
                 <button onClick={() => setPaymentModal(false)} className="p-2 hover:bg-gray-100 rounded-full">
                   <X size={20} />
                 </button>
               </div>
-              <p className="text-3xl font-bold text-[#b27632] mt-2">{formatRupiah(total)}</p>
+              <p className="text-3xl font-bold text-batik-gold mt-2">{formatRupiah(total)}</p>
             </div>
             <div className="p-6 space-y-3">
               {[
@@ -484,7 +501,7 @@ const POSPage = () => {
                 <button key={method.id} onClick={() => setPaymentMethod(method.id)}
                   className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all ${
                     paymentMethod === method.id
-                      ? 'border-[#684F33] bg-[#684F33]/5'
+                      ? 'border-batik-green bg-batik-green/5'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}>
                   <div className={`w-12 h-12 bg-gradient-to-br ${method.gradient} rounded-xl flex items-center justify-center`}>
@@ -495,7 +512,7 @@ const POSPage = () => {
                     <p className="text-xs text-gray-500">{method.sublabel}</p>
                   </div>
                   {paymentMethod === method.id && (
-                    <div className="ml-auto w-5 h-5 bg-[#684F33] rounded-full flex items-center justify-center">
+                    <div className="ml-auto w-5 h-5 bg-batik-green rounded-full flex items-center justify-center">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                   )}
@@ -504,7 +521,7 @@ const POSPage = () => {
             </div>
             <div className="p-6 pt-0">
               <button onClick={handleCheckout} disabled={processing}
-                className="w-full py-4 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white rounded-2xl font-bold text-lg hover:from-[#423526] hover:to-[#684F33] transition-all shadow-xl disabled:opacity-70 flex items-center justify-center gap-2">
+                className="w-full py-4 bg-gradient-to-r from-batik-gold to-batik-warm text-white rounded-2xl font-bold text-lg hover:from-batik-warm hover:to-batik-gold transition-all shadow-xl disabled:opacity-70 flex items-center justify-center gap-2">
                 {processing ? (
                   <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 ) : (
@@ -529,12 +546,12 @@ const POSPage = () => {
             <p className="text-gray-500 mb-4">
               {currentTransaction.invoice_number || `TRX-${currentTransaction.id}`}
             </p>
-            <p className="text-4xl font-bold text-[#b27632] mb-6">
+            <p className="text-4xl font-bold text-batik-gold mb-6">
               {formatRupiah(currentTransaction.total)}
             </p>
             <div className="flex gap-3">
               <button onClick={() => window.print()}
-                className="flex-1 py-3 border-2 border-[#684F33] text-[#684F33] rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-[#684F33]/5">
+                className="flex-1 py-3 border-2 border-batik-green text-batik-green rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-batik-green/5">
                 <Printer size={18} /> Cetak Struk
               </button>
               <button onClick={() => { 
@@ -543,7 +560,7 @@ const POSPage = () => {
                 setCustomerInfo({ name: '', phone: '' }); 
                 searchRef.current?.focus();
               }}
-                className="flex-1 py-3 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white rounded-xl font-semibold">
+                className="flex-1 py-3 bg-gradient-to-r from-batik-gold to-batik-warm text-white rounded-xl font-semibold">
                 Transaksi Baru
               </button>
             </div>
@@ -553,7 +570,7 @@ const POSPage = () => {
       {/* Toast Notification */}
       {toast.show && (
         <div className={`fixed top-6 right-6 z-[60] px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in-down ${
-          toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-[#684F33] text-white'
+          toast.type === 'error' ? 'bg-red-500 text-white' : 'bg-batik-green text-white'
         }`}>
           {toast.type === 'error' ? (
              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>

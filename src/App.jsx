@@ -5,6 +5,7 @@ import Layout from './components/layout/Layout';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import POSPage from './pages/POSPage';
+import OnlineOrdersPage from './pages/OnlineOrdersPage';
 import ProductsPage from './pages/ProductsPage';
 import ReportsPage from './pages/ReportsPage';
 import TransactionsPage from './pages/TransactionsPage';
@@ -15,12 +16,20 @@ import CategoriesPage from './pages/CategoriesPage';
 const ProtectedRoute = ({ children, roles = [] }) => {
   const { user, loading, hasRole } = useAuth();
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#423526] to-[#684F33]">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-batik-green to-batik-dark">
       <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
+  
   if (!user) return <Navigate to="/login" replace />;
-  if (roles.length > 0 && !hasRole(roles)) return <Navigate to="/pos" replace />;
+
+  if (roles.length > 0 && !hasRole(roles)) {
+    // Redirect based on role if unauthorized
+    if (user.role === 'kasir_offline') return <Navigate to="/pos" replace />;
+    if (user.role === 'kasir_online') return <Navigate to="/online-orders" replace />;
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return <Layout>{children}</Layout>;
 };
 
@@ -38,8 +47,14 @@ const AppRoutes = () => {
       } />
       
       <Route path="/pos" element={
-        <ProtectedRoute>
+        <ProtectedRoute roles={['kasir_offline']}>
           <POSPage />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/online-orders" element={
+        <ProtectedRoute roles={['kasir_online']}>
+          <OnlineOrdersPage />
         </ProtectedRoute>
       } />
 

@@ -4,9 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: { DEFAULT: "#684F33", dark: "#423526", light: "#8B7355" },
-        secondary: { DEFAULT: "#b27632", dark: "#9a6329", light: "#c99150" },
-        batik: { cream: "#FAF8F6", beige: "#E5DDD5", brown: "#684F33", dark: "#423526" },
+        batik: {
+          dark: "#0B301D",      // Deep Forest Green
+          green: "#144229",     // Emerald Green
+          gold: "#D4AF37",      // Classic Metallic Gold
+          warm: "#C5A059",      // Warm Gold
+          olive: "#7A6B39",     // Olive Tint
+          bronze: "#4A4523",    // Bronze Shadow
+          cream: "#FAF8F6",
+          beige: "#E5DDD5"
+        },
       },
     },
   },

@@ -91,11 +91,11 @@ const ProductsPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#423526]">Manajemen Produk</h1>
+          <h1 className="text-2xl font-bold text-batik-dark">Manajemen Produk</h1>
           <p className="text-gray-500 text-sm">Kelola produk batik Anda</p>
         </div>
         <button onClick={() => openModal()}
-          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white rounded-xl font-semibold hover:from-[#423526] hover:to-[#684F33] transition-all shadow-lg">
+          className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-batik-gold to-batik-warm text-white rounded-xl font-semibold hover:from-batik-warm hover:to-batik-gold transition-all shadow-lg">
           <Plus size={18} /> Tambah Produk
         </button>
       </div>
@@ -106,7 +106,7 @@ const ProductsPage = () => {
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input type="text" placeholder="Cari produk..." value={search}
             onChange={e => { setSearch(e.target.value); setPage(1); }}
-            className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none text-sm"
+            className="w-full pl-10 pr-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none text-sm"
           />
         </div>
       </div>
@@ -115,7 +115,7 @@ const ProductsPage = () => {
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gradient-to-r from-[#423526] to-[#684F33] text-white">
+            <thead className="bg-gradient-to-r from-batik-green to-batik-dark text-white">
               <tr>
                 <th className="text-left p-4 text-sm font-semibold">Produk</th>
                 <th className="text-left p-4 text-sm font-semibold">Kategori</th>
@@ -127,7 +127,7 @@ const ProductsPage = () => {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {loading ? (
-                <tr><td colSpan={6} className="text-center py-12"><div className="w-8 h-8 border-4 border-[#684F33] border-t-transparent rounded-full animate-spin mx-auto"></div></td></tr>
+                <tr><td colSpan={6} className="text-center py-12"><div className="w-8 h-8 border-4 border-batik-green border-t-transparent rounded-full animate-spin mx-auto"></div></td></tr>
               ) : products.map(product => (
                 <tr key={product.id} className="hover:bg-gray-50 transition-colors">
                   <td className="p-4">
@@ -135,7 +135,7 @@ const ProductsPage = () => {
                       <div className="w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF8F6] to-[#E5DDD5] flex-shrink-0">
                         {product.image
                           ? <img src={`${API_URL}/storage/${product.image}`} alt={product.name} className="w-full h-full object-cover" />
-                          : <Package size={20} className="text-[#684F33]/30 m-auto mt-3" />
+                          : <Package size={20} className="text-batik-green/30 m-auto mt-3" />
                         }
                       </div>
                       <div>
@@ -144,8 +144,8 @@ const ProductsPage = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="p-4"><span className="px-2 py-1 bg-[#684F33]/10 text-[#684F33] rounded-lg text-xs font-medium">{product.category?.name}</span></td>
-                  <td className="p-4"><p className="font-bold text-[#b27632]">{formatRupiah(product.price)}</p><p className="text-xs text-gray-400">HPP: {formatRupiah(product.cost_price)}</p></td>
+                  <td className="p-4"><span className="px-2 py-1 bg-batik-green/10 text-batik-green rounded-lg text-xs font-medium">{product.category?.name}</span></td>
+                  <td className="p-4"><p className="font-bold text-batik-gold">{formatRupiah(product.price)}</p><p className="text-xs text-gray-400">HPP: {formatRupiah(product.cost_price)}</p></td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
                       <span className={`font-bold text-lg ${product.stock <= product.min_stock ? 'text-red-600' : 'text-gray-800'}`}>{product.stock}</span>
@@ -177,7 +177,7 @@ const ProductsPage = () => {
             <div className="flex gap-2">
               {Array.from({ length: meta.last_page }, (_, i) => i + 1).map(p => (
                 <button key={p} onClick={() => setPage(p)}
-                  className={`w-8 h-8 rounded-lg text-sm font-medium ${p === page ? 'bg-gradient-to-r from-[#684F33] to-[#b27632] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+                  className={`w-8 h-8 rounded-lg text-sm font-medium ${p === page ? 'bg-gradient-to-r from-batik-gold to-batik-warm text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
                   {p}
                 </button>
               ))}
@@ -191,7 +191,7 @@ const ProductsPage = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white p-6 border-b flex items-center justify-between rounded-t-3xl">
-              <h3 className="text-xl font-bold text-[#423526]">{editing ? 'Edit Produk' : 'Tambah Produk'}</h3>
+              <h3 className="text-xl font-bold text-batik-dark">{editing ? 'Edit Produk' : 'Tambah Produk'}</h3>
               <button onClick={() => setModal(false)} className="p-2 hover:bg-gray-100 rounded-full"><X size={20} /></button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
@@ -199,17 +199,17 @@ const ProductsPage = () => {
                 <div className="col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Nama Produk *</label>
                   <input type="text" required value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">SKU *</label>
                   <input type="text" required value={form.sku} onChange={e => setForm({...form, sku: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Kategori *</label>
                   <select required value={form.category_id} onChange={e => setForm({...form, category_id: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none">
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none">
                     <option value="">Pilih kategori</option>
                     {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                   </select>
@@ -217,36 +217,36 @@ const ProductsPage = () => {
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Harga Jual *</label>
                   <input type="number" required min="0" value={form.price} onChange={e => setForm({...form, price: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">HPP (Harga Pokok)</label>
                   <input type="number" min="0" value={form.cost_price} onChange={e => setForm({...form, cost_price: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Stok *</label>
                   <input type="number" required min="0" value={form.stock} onChange={e => setForm({...form, stock: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Stok Minimum</label>
                   <input type="number" min="0" value={form.min_stock} onChange={e => setForm({...form, min_stock: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none" />
                 </div>
                 <div className="col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Deskripsi</label>
                   <textarea rows={3} value={form.description} onChange={e => setForm({...form, description: e.target.value})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none resize-none" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none resize-none" />
                 </div>
                 <div className="col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Foto Produk</label>
                   <input type="file" accept="image/*" onChange={e => setForm({...form, image: e.target.files[0]})}
-                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-[#684F33] focus:outline-none text-sm" />
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl focus:border-batik-green focus:outline-none text-sm" />
                 </div>
                 <div className="col-span-2 flex items-center gap-2">
                   <input type="checkbox" id="is_active" checked={form.is_active} onChange={e => setForm({...form, is_active: e.target.checked})}
-                    className="w-4 h-4 accent-[#684F33]" />
+                    className="w-4 h-4 accent-batik-green" />
                   <label htmlFor="is_active" className="text-sm font-medium text-gray-700">Produk Aktif</label>
                 </div>
               </div>
@@ -254,7 +254,7 @@ const ProductsPage = () => {
                 <button type="button" onClick={() => setModal(false)}
                   className="flex-1 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-50">Batal</button>
                 <button type="submit" disabled={saving}
-                  className="flex-1 py-3 bg-gradient-to-r from-[#684F33] to-[#b27632] text-white rounded-xl font-semibold disabled:opacity-70 flex items-center justify-center gap-2">
+                  className="flex-1 py-3 bg-gradient-to-r from-batik-gold to-batik-warm text-white rounded-xl font-semibold disabled:opacity-70 flex items-center justify-center gap-2">
                   {saving ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> : 'Simpan'}
                 </button>
               </div>

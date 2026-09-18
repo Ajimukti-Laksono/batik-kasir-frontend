@@ -23,7 +23,7 @@ const ReportsPage = () => {
 
   if (loading) return (
     <div className="flex items-center justify-center h-64">
-      <div className="w-10 h-10 border-4 border-[#684F33] border-t-transparent rounded-full animate-spin"></div>
+      <div className="w-10 h-10 border-4 border-batik-green border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
 
@@ -31,7 +31,7 @@ const ReportsPage = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#423526]">Laporan Penjualan</h1>
+          <h1 className="text-2xl font-bold text-batik-dark">Laporan Penjualan</h1>
           <p className="text-gray-500 text-sm">Analisis performa penjualan Batik Nusantara</p>
         </div>
         <div className="flex items-center gap-3">
@@ -49,7 +49,7 @@ const ReportsPage = () => {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: 'Total Revenue', value: formatRupiah(data?.summary?.total_revenue || 0), color: 'from-[#684F33] to-[#b27632]' },
+          { label: 'Total Revenue', value: formatRupiah(data?.summary?.total_revenue || 0), color: 'from-batik-gold to-batik-warm' },
           { label: 'Total Transaksi', value: data?.summary?.total_transactions || 0, color: 'from-blue-500 to-blue-600' },
           { label: 'Rata-rata Transaksi', value: formatRupiah(data?.summary?.avg_transaction || 0), color: 'from-purple-500 to-purple-600' },
         ].map((card, i) => (
@@ -63,7 +63,7 @@ const ReportsPage = () => {
       {/* Daily Revenue Chart */}
       <div className="bg-white rounded-2xl p-6 shadow-sm">
         <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-          <TrendingUp size={18} className="text-[#b27632]" /> Revenue Harian
+          <TrendingUp size={18} className="text-batik-gold" /> Revenue Harian
         </h3>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={data?.daily_report || []}>
@@ -102,7 +102,7 @@ const ReportsPage = () => {
                 <div key={i}>
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-[#684F33] to-[#b27632] rounded-full flex items-center justify-center text-white text-xs font-bold">
+                      <div className="w-7 h-7 bg-gradient-to-br from-batik-gold to-batik-warm rounded-full flex items-center justify-center text-white text-xs font-bold">
                         {kasir.kasir?.name?.charAt(0)}
                       </div>
                       <span className="text-sm font-medium text-gray-700">{kasir.kasir?.name}</span>
@@ -113,7 +113,7 @@ const ReportsPage = () => {
                     </div>
                   </div>
                   <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-[#684F33] to-[#b27632] rounded-full transition-all duration-500"
+                    <div className="h-full bg-gradient-to-r from-batik-gold to-batik-warm rounded-full transition-all duration-500"
                       style={{ width: `${percentage}%` }}></div>
                   </div>
                 </div>
