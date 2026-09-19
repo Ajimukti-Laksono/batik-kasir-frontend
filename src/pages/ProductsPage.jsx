@@ -133,8 +133,8 @@ const ProductsPage = () => {
                   <td className="p-4">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-xl overflow-hidden bg-gradient-to-br from-[#FAF8F6] to-[#E5DDD5] flex-shrink-0">
-                        {product.image
-                          ? <img src={`${API_URL}/storage/${product.image}`} alt={product.name} className="w-full h-full object-cover" />
+                      {product.image
+                          ? <img src={product.image.startsWith('http') ? product.image : `${API_URL}/storage/${product.image}`} alt={product.name} className="w-full h-full object-cover" />
                           : <Package size={20} className="text-batik-green/30 m-auto mt-3" />
                         }
                       </div>
