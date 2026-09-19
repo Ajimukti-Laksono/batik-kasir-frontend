@@ -104,7 +104,7 @@ const CategoriesPage = () => {
             <div className="flex items-center gap-4 mb-3">
               <div className="w-16 h-16 rounded-2xl bg-gray-100 overflow-hidden flex-shrink-0 border border-gray-200">
                 {cat.image ? (
-                  <img src={`${import.meta.env.VITE_API_URL?.replace('/api', '')}/storage/${cat.image}`} alt={cat.name} className="w-full h-full object-cover" />
+                  <img src={cat.image.startsWith('http') ? cat.image : `${import.meta.env.VITE_API_URL?.replace('/api', '')}/storage/${cat.image}`} alt={cat.name} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-400">
                     <Tag size={24} />
