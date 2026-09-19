@@ -144,8 +144,8 @@ const Layout = ({ children }) => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden relative z-10 bg-[#F4F6F4]">
         {/* Top Bar Floating */}
-        <header className="px-8 py-4 z-30">
-          <div className="bg-white/90 backdrop-blur-md border border-gray-100 rounded-2xl px-6 py-3 flex items-center justify-between shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)]">
+        <header className="px-4 md:px-8 py-4 z-30">
+          <div className="bg-white/90 backdrop-blur-md border border-gray-100 rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)]">
             <div className="flex items-center gap-4">
                <button
                  onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -158,7 +158,7 @@ const Layout = ({ children }) => {
                </h2>
             </div>
   
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 md:gap-6">
               <button className="relative p-2 text-gray-500 hover:text-batik-gold transition-colors">
                 <Bell size={20} />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
@@ -184,7 +184,7 @@ const Layout = ({ children }) => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto px-8 pb-8 pt-2 custom-scrollbar">
+        <main className="flex-1 overflow-y-auto px-4 md:px-8 pb-8 pt-2 custom-scrollbar">
           <div className="max-w-7xl mx-auto animate-fade-in">
             {children}
           </div>
